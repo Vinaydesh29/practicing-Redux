@@ -1,8 +1,8 @@
+import CountSlice from './slice.js'
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from './slice.js'
-const store = configureStore({
-    reducer:{
-        user: userSlice
+const Store = configureStore({
+    reducer :{
+     Count:CountSlice
     }
 })
-export default store
+export default Store

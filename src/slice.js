@@ -1,16 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-    value : "_____"
+    value :0
 }
-
-const userSlice = createSlice({
-    name: "user",
+const CountSlice = createSlice({
+    name:"Count",
     initialState,
     reducers:{
-        updateName : (state,action)=>{
-            state.value = action.payload
+        inceBy1:(state)=>{
+            state.value +=1
+        },
+        inceBy5 :(state)=>{
+            state.value +=5
+        }
+        ,
+        decBy1:(state)=>{
+            state.value -=1
+        },
+        input :(state,action)=>{
+            state.value += action.payload
         }
     }
 })
- export const {updateName} = userSlice.actions
- export default userSlice.reducer
+export const {inceBy1,inceBy5,decBy1,input} = CountSlice.actions
+export default CountSlice.reducer

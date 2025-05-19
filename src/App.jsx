@@ -1,26 +1,16 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateName } from "./slice";
-import User from "./User";
+import { decBy1, inceBy1, inceBy5 } from "./slice";
 
 function App() {
-  const [name, setName] = useState("");
-  const value = useSelector((state) => state.user.value);
+  const value = useSelector((state) => state.Count.value);
   const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(updateName(name));
-  };
   return (
     <>
-      <input type="text" onChange={(e) => setName(e.target.value)} />
-      <button onClick={handleClick}>Submit from App</button>
-      <p>{value}</p>
-      <User />
+      <h1>Count :{value}</h1>
+      <button onClick={() => dispatch(inceBy1())}>InceBy1</button>
+      <button onClick={() => dispatch(inceBy5())}>InceBy5</button>
+      <button onClick={() => dispatch(decBy1())}>decBy1</button>
     </>
   );
 }
-
 export default App;
