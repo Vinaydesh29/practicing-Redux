@@ -1,28 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
-    value :0
-}
-const CountSlice = createSlice({
-    name:"Count",
-    initialState,
-    reducers:{
-        inceBy1:(state)=>{
-            state.value +=1
-        },
-        inceBy5 :(state)=>{
-            state.value +=5
-        }
-        ,
-        decBy1:(state)=>{
-            state.value -=1
-        },
-        input :(state,action)=>{
-            state.value += action.payload
-        },
-        reset:(state)=>{
-            state.value = initialState.value
-        }
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+export const fetchData = createAsyncThunk('ApiTunk/fetchData',async()=>{
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await res.json()
+    return data
+})
+
+const Api = createSlice({
+    name:"api",
+    initialState:{
+        status :"",
+        error : "",
+        user:[]
+    },
+    reducers:{},
+    extraReducers:(builder)=>{
+        builder.addCase(fetchData.pending,(state)=>{
+            state.status = "Loading"
+        }).addCase(fetchData.fulfilled,(state,action)=>{
+            state.status = "success"
+            state.user = action.payload
+        }).addCase(fetchData.rejected,(state,action)=>{
+            state.status = "error"
+            state.error = action.error.message
+        })
     }
 })
-export const {inceBy1,inceBy5,decBy1,input,reset} = CountSlice.actions
-export default CountSlice.reducer
+export default Api.reducer

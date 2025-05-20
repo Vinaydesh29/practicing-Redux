@@ -1,19 +1,26 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { decBy1, inceBy1, inceBy5 } from "./slice";
-import Count from "./Count";
+import { fetchData } from "./slice.js";
 
 function App() {
-  const value = useSelector((state) => state.Count.value);
+  const { user, status, error } = useSelector((state) => state.ApiTunk);
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (status === "") {
+      dispatch(fetchData());
+    }
+  }, [dispatch, status]);
   return (
     <>
-      <h1>Count :{value}</h1>
-      <button onClick={() => dispatch(inceBy1())}>InceBy1</button>
-      <button onClick={() => dispatch(inceBy5())}>InceBy5</button>
-      <button onClick={() => dispatch(decBy1())}>decBy1</button>
-      <br />
-      <br />
-      <Count />
+      {status === "Loading" && <h1>{status}</h1>}
+      {status === "success" && (
+        <ul>
+          {user.map((items, index) => {
+            return <li key={index}>{items.title}</li>;
+          })}
+        </ul>
+      )}
+      {status === "error" && <h1>{error}</h1>}
     </>
   );
 }
