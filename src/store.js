@@ -5,3 +5,4 @@ const Store = configureStore({
         ApiStore:ApiSlice
     }
 })
+export default Store

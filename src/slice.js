@@ -25,4 +25,4 @@ const ApiSlice = createSlice({
         })
     }
 })
-export default ApiSlice.actions
+export default ApiSlice.reducer
