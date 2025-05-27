@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "./slice";
-import UseMemo from "./UseMemo";
 
 function App() {
   const { status, user, error } = useSelector((state) => state.ApiStore);
@@ -13,7 +12,7 @@ function App() {
   }, [status, dispatch]);
   return (
     <>
-      {/* {status === "pending" && <h1>{status}</h1>}
+      {status === "pending" && <h1>{status}</h1>}
       {status === "success" && (
         <ul>
           {user.map((items, index) => {
@@ -21,8 +20,7 @@ function App() {
           })}
         </ul>
       )}
-      {status === "error" && <h1>{error}</h1>} */}
-      <UseMemo />
+      {status === "error" && <h1>{error}</h1>}
     </>
   );
 }
